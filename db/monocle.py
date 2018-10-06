@@ -602,6 +602,13 @@ class MonocleWrapper:
             log.error("Could not connect to the SQL database")
             return []
         cursor = connection.cursor()
+        
+        if dist == 99:
+            dist = str(args.gym_scan_distance)
+        else:
+            dist = str(9999)
+            lat = args.home_lat
+            lng = args.home_lng
 
         query = ('SELECT ' +
                  ' id, ( ' +
