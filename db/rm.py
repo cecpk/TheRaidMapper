@@ -588,6 +588,13 @@ class RmWrapper:
         # query = (' SELECT start, latitude, longitude FROM raid LEFT JOIN gym ' +
         #    'ON raid.gym_id = gym.gym_id WHERE raid.start >= \'%s\''
         #    % str(datetime.datetime.now() - datetime.timedelta(hours = self.timezone)))
+        
+        if dist == 99:
+            distance = str(args.gym_scan_distance)
+        else:
+            distance = str(9999)
+            lat = args.home_lat
+            lng = args.home_lng
 
         query = ('SELECT ' +
                  ' gym_id, ( ' +
@@ -619,7 +626,7 @@ class RmWrapper:
         connection.close()
         return data
 
-    def checkGymsNearby(self, lat, lng, hash, raidNo, gym, limited=True):
+    def checkGymsNearby(self, lat, lng, hash, raidNo, gym):
         try:
             connection = mysql.connector.connect(host=self.host,
                                                  user=self.user, port=self.port, passwd=self.password,
@@ -628,13 +635,6 @@ class RmWrapper:
             log.error("Could not connect to the SQL database")
             return []
         cursor = connection.cursor()
-        
-        if limited:
-            distance = str(args.gym_scan_distance)
-        else:
-            distance = str(9999)
-            lat = args.home_lat
-            lng = args.home_lng
 
         query = ('SELECT ' +
                  ' gym_id, ( ' +
