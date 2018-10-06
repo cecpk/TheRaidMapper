@@ -619,7 +619,7 @@ class RmWrapper:
         connection.close()
         return data
 
-    def checkGymsNearby(self, lat, lng, hash, raidNo, gym):
+    def checkGymsNearby(self, lat, lng, hash, raidNo, gym, limited=True):
         try:
             connection = mysql.connector.connect(host=self.host,
                                                  user=self.user, port=self.port, passwd=self.password,
@@ -628,6 +628,13 @@ class RmWrapper:
             log.error("Could not connect to the SQL database")
             return []
         cursor = connection.cursor()
+        
+        if limited:
+            distance = str(args.gym_scan_distance)
+        else:
+            distance = str(9999)
+            lat = args.home_lat
+            lng = args.home_lng
 
         query = ('SELECT ' +
                  ' gym_id, ( ' +
