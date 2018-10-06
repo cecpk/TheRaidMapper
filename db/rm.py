@@ -590,11 +590,11 @@ class RmWrapper:
         #    % str(datetime.datetime.now() - datetime.timedelta(hours = self.timezone)))
         
         if dist == 99:
-            distance = str(args.gym_scan_distance)
-        else:
             distance = str(9999)
             lat = args.home_lat
             lng = args.home_lng
+        else:
+            distance = str(args.gym_scan_distance)
 
         query = ('SELECT ' +
                  ' gym_id, ( ' +
