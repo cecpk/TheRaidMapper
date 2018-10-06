@@ -604,11 +604,11 @@ class MonocleWrapper:
         cursor = connection.cursor()
         
         if dist == 99:
-            dist = str(args.gym_scan_distance)
-        else:
-            dist = str(9999)
+            distance = str(9999)
             lat = args.home_lat
             lng = args.home_lng
+        else:
+            distance = str(args.gym_scan_distance)
 
         query = ('SELECT ' +
                  ' id, ( ' +
