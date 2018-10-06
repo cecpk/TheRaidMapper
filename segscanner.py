@@ -269,7 +269,11 @@ class Scanner:
                 
             log.debug('[Crop: ' + str(raidNo) + ' (' + str(self.uniqueHash) +') ] ' + 'detectGym: No Gym-Hash: found - searching')
             log.debug('[Crop: ' + str(raidNo) + ' (' + str(self.uniqueHash) +') ] ' + 'detectGym: Searching closest gyms')
-            closestGymIds = self.dbWrapper.getNearGyms(captureLat, captureLng, hash, raidNo, str(args.gym_scan_distance))
+            if captureLat == '9999':
+                distance = 99
+            else:
+                distance = str(args.gym_scan_distance)
+            closestGymIds = self.dbWrapper.getNearGyms(captureLat, captureLng, hash, raidNo, distance)
 
             log.debug('[Crop: ' + str(raidNo) + ' (' + str(self.uniqueHash) +') ] ' + 'detectGym: Detecting Gym')
             for closegym in closestGymIds:
